@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Covoiturage</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="header">
+  <div class="left">
+    <a href="#" class="logo" aria-label="Accueil" data-i18n="logo">amigoexpress</a>
+    <a href="#" class="nav-link">
+      <svg viewBox="0 0 32 32"><path d="M4 21v-5l3-6h14l4 6h2v5h-3M4 21h3m14 0H11"/><circle cx="9" cy="22" r="2.5"/><circle cx="21" cy="22" r="2.5"/></svg>
+      <span data-i18n="post">Annoncer</span>
+    </a>
+    <a href="#" class="nav-link">
+      <svg viewBox="0 0 32 32"><circle cx="14" cy="14" r="9"/><path d="M21 21l7 7"/></svg>
+      <span data-i18n="search">Rechercher</span>
+    </a>
+    <a href="#" class="nav-link">
+      <svg viewBox="0 0 32 32"><path d="M6 28V6h14v22M20 12h6v16M3 28h26M10 11h6M10 16h6M10 21h6"/></svg>
+      <span data-i18n="daily">Trajets quotidiens</span>
+      <span class="badge-new" data-i18n="new">NOUVEAU</span>
+    </a>
+  </div>
+
+  <div class="right">
+    <button class="icon-btn" id="cart" aria-label="Panier">
+      <svg viewBox="0 0 32 32"><path d="M3 5h4l3 14h14l3-10H9"/><circle cx="12" cy="25" r="2"/><circle cx="23" cy="25" r="2"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+
+    <div class="dropdown" id="help">
+      <button type="button" aria-expanded="false">
+        <span data-i18n="help">Aide</span>
+        <svg viewBox="0 0 16 16"><path d="M2 5l6 6 6-6"/></svg>
+      </button>
+      <div class="menu">
+        <a href="#" data-i18n="faq">Questions fréquentes</a>
+        <a href="#" data-i18n="contact">Contacter l'équipe</a>
+        <a href="#" data-i18n="safety">Conseils de sécurité</a>
+      </div>
+    </div>
+
+    <button class="lang" id="lang">English</button>
+    <a href="#" class="signup" data-i18n="signup">Inscription</a>
+    <a href="./html/login.html" class="login" data-i18n="login">Connexion</a>
+    <button class="burger" id="burger" aria-label="Menu"><svg viewBox="0 0 30 30"><path d="M4 8h22M4 15h22M4 22h22"/></svg></button>
+  </div>
+</header>
+
+<!-- ================= LOADER ================= -->
+<div id="loader" role="status" aria-live="polite">
+  <img src="./image/kango-loading.gif" alt="Chargement en cours…" width="140" height="140">
+</div>
+
+
+<div id="content" class="is-hidden">
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>
+          <span class="espace" data-i18n="h1a">La référence en covoiturage depuis</span><br>
+          <span class="blue"><span data-i18n="h1b">20 ans déjà</span>
+            <img src="./image/cheval.png" alt="">
+          </span>
+        </h1>
+        <p data-i18n="lead">Notre équipe est là pour vous accompagner à chaque étape. Pas de robot, pas de menu interminable. Juste des humains.</p>
+        <div class="stores">
+          <a href="#" class="store">
+            <img src="./image/app_store_logo.png" width="20" height="20" alt="App Store">
+            <span><b>4.9★ <span data-i18n="onApp">sur l'App Store</span></b><small>6.6k <span data-i18n="reviews">avis</span></small></span>
+          </a>
+          <a href="#" class="store">
+           <img src="./image/google_play_logo.png" width="20" height="20" alt="Google Play">
+            <span><b>4.8★ <span data-i18n="onPlay">sur Google Play</span></b><small>1.8k <span data-i18n="reviews2">avis</span></small></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="illustration" aria-hidden="true">
+        <img src="./image/vehicule.png" alt="">
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="depart">
+          <label for="inputDepart" class="form-label visually-hidden">Ville de départ</label>
+          <input class="form-control form-control-caret dimension"
+                 list="villes"
+                 id="inputDepart"
+                 placeholder="Départ"
+                 data-i18n-placeholder="depart">
+        </div>
+
+        <div class="destination">
+          <label for="inputDestination" class="form-label visually-hidden">Ville de destination</label>
+          <input class="form-control form-control-caret dimension"
+                 list="villes"
+                 id="inputDestination"
+                 placeholder="Destination"
+                 data-i18n-placeholder="destination">
+        </div>
+
+        <datalist id="villes">
+          <option value="Montréal, QC"></option>
+          <option value="Québec, QC"></option>
+          <option value="Ottawa, ON"></option>
+          <option value="Gatineau, QC"></option>
+          <option value="Toronto, ON"></option>
+          <option value="Trois-Rivières, QC"></option>
+          <option value="Sherbrooke, QC"></option>
+          <option value="Drummondville, QC"></option>
+          <option value="Chicoutimi, QC"></option>
+          <option value="Rimouski, QC"></option>
+        </datalist>
+
+        <div class="date">
+          <label for="datepickerIconStart" class="form-label visually-hidden">Date du trajet</label>
+          <div class="form-control form-adorn w-12">
+            <input type="text"
+                   class="form-ghost"
+                   id="datepickerIconStart"
+                   data-bs-toggle="datepicker"
+                   autocomplete="off"
+                   placeholder="Date"
+                   data-i18n-placeholder="date">
+          </div>
+        </div>
+
+        <div>
+          <button class="boutton" type="button"> <i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="btnRechercher">Rechercher</span></button>
+        </div>
+
+        <div>
+          <button class="boutton2" type="button"><span data-i18n="btnAnnoncer">+ Annoncer</span></button>
+        </div>
+      </div>
+    </section>
+
+    <p class="text" data-i18n="deuxFacons">Deux façons de prendre la route avec Amigo</p>
+
+    <section class="cards-conatiner">
+      <div class="card-container">
+        <div class="card" style="max-width: 540px; padding: 30px; box-shadow: 0 6px 20px rgba(0, 0, 0, .1); border: none;">
+        <img src="./image/home-card-passenger.jpg" class="card-img-top" alt="...">
+         <div class="card-body">
+          <h2 class="card-Passager" data-i18n="passager">Passager</h2>
+          <h4 class="card-title" data-i18n="seFaireConduire">Se faire conduire</h4>
+          <p class="card-text" data-i18n="textePassager">Voyagez à petit prix, même à la dernière minute! Choisissez votre trajet et réservez une place en ligne. Nous sommes là pour vous accompagner.</p>
+          <div class="lien">
+            <a href="#" class="btn-solid theme-primary btn1" style="width: 40%; border-radius: 20px; color: white; padding: 10px;" data-i18n="reserverPlace">--> Réserver une place</a>
+            <a href="#" class="info" style="text-decoration: underline ; color: #0099ff; padding: 10px; float: right; font-size: 14px;" data-i18n="plusInfo">plus d'info svp!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="max-width: 540px; padding: 30px; box-shadow: 0 6px 20px rgba(0, 0, 0, .1); border: none;">
+        <img src="./image/home-card-driver.jpg" class="card-img-top" style="background: blue;" alt="...">
+        <div class="card-body">
+          <h2 class="card-Conducteur" data-i18n="conducteur">Conducteur</h2>
+          <h4 class="card-title" data-i18n="conduireAmigos">Conduire des amigos</h4>
+          <p class="card-text" data-i18n="texteConducteur">Faites des économies sur vos déplacements en offrant des places libres dans votre voiture. Vous allez aimer voyager encore plus.</p>
+          <div class="lien">
+           <a href="#" class="btn-solid theme-danger btn2" style="width: 40%; border-radius: 20px; color: white; padding: 10px;" data-i18n="donnerLift">--> Donner un lift</a>
+           <a href="#" class="info" style="text-decoration:underline ; color: red; padding: 10px; float: right; font-size: 14px;" data-i18n="commentMarche">oui, mais comment ça marche?</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="text-2">
+      <div data-i18n="pretPartir">Prêt à partir?</div>
+      <div style="color: gray; font-size: 15px;" data-i18n="trajetsPopulaires">Nos trajets les plus populaires</div>
+    </section>
+
+    <section class="slide">
+
+    <div id="carouselMultiple" class="carousel slide" data-bs-ends="stop" style="--bs-carousel-items: 3; --bs-carousel-items-gap: 1rem;">
+    <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0"></h5>
+    
+  </div>
+  <div class="carousel-inner box-1">
+    <div class="carousel-item active ">
+         <section class="card box" style="max-width: 420px ; ">
+          <img src="./image/montreal.jpg" style="filter: blur(1.05px);" class="card-img-top"  alt="...">
+          <div class="card-body">
+          <h4  class="card-title test-img" style="color: aliceblue; font-weight: bold;">Montréal <br><span style=" font-size: 15px; font-weight: bold; color: rgb(243, 235, 235);">440+annonces par jour</span></h4>
+         
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">12201+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">11390+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">7754+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">7664+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>          
+          </ul>
+          </div>
+        </section>
+    </div>
+    <div class="carousel-item">
+        <section class="card box" style="max-width: 420px ; ">
+          <img src="./image/quebec.jpg"  class="card-img-top" style="filter: blur(1.05px);" alt="...">
+          <div class="card-body">
+          <h4  class="card-title test-img" style="color: aliceblue; font-weight: bold; padding-left: 10px;">Québec <br><span style=" font-size: 15px; font-weight: bold; color:rgb(243, 235, 235);">270+annonces par jour</span></h4>
+         
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">12201+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">11390+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">7754+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">7664+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>          
+          </ul>
+          </div>
+        </section>
+    </div>
+    <div class="carousel-item">
+          <section class="card box" style="max-width: 420px ; ">
+          <img src="./image/saguenay.jpg"  class="card-img-top"  alt="...">
+          <div class="card-body">
+          <h4  class="card-title test-img" style="color: aliceblue; font-weight: bold;">Toronto<br><span style=" font-size: 15px; font-weight: bold; color: rgb(243, 235, 235);">40+annonces par jour</span></h4>
+         
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">12201+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">11390+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">7754+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>
+            <li class="list-group-item">Québec --> Montréal <br><span style="font-size: 14px; color: #666;">7664+départs</span><br> <span style="font-size: 12px; color:#0080d6;">23-34$</span> <span class="li-text" >-></span></li>          
+          </ul>
+          </div>
+        </section>
+    </div>
+    <div class="carousel-item"><img src="..." class="d-block w-100 rounded-5" alt="..."></div>
+    <div class="carousel-item"><img src="..." class="d-block w-100 rounded-5" alt="..."></div>
+    <div class="carousel-item"><img src="..." class="d-block w-100 rounded-5" alt="..."></div>
+    <div class="carousel-item"><img src="..." class="d-block w-100 rounded-5" alt="..."></div>
+  </div>
+</div>
+
+    <div class="carousel-controls d-flex justify-content-evenly align-items-center">
+      <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselMultiple" data-bs-slide="prev" style="--bs-carousel-control-icon-width: 1rem;">
+        <span class="carousel-icon-prev" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselMultiple" data-bs-slide="next" style="--bs-carousel-control-icon-width: 1rem;">
+        <span class="carousel-icon-next" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+</section>
+
+    <section class="bg-bleu">
+      <div style="text-align:  center; ">
+        <p style="font-size: 50px;" data-i18n="vingtAnsImpact"><span style="color: #fff; font-weight: bold;">20 ans</span> <strong>d'impact</strong></p>   
+        <p style="font-size: 20px; color: white;" data-i18n="communauteDifference">La communauté a fait une différence, un trajet à la fois</p>
+      </div>
+      <div class="contain">
+        <div style="display: flex; justify-content: space-around;">
+          <img src="./image/1.png" alt="">
+          <img src="./image/4.png" alt="">
+          <img src="./image/3.png" alt="">
+        </div>
+      </div>
+      <div class="contain2">
+        <div class="h2-number">
+          <h2> 439 000+</h2>
+          <p class="tex" data-i18n="annoncesAnnee">Annonces par année</p>
+        </div>
+        <div class="h2-number">
+          <h2> 1 million+</h2>
+          <p class="tex" data-i18n="membresInscrits">Membres inscrits</p>
+        </div>
+        <div class="h2-number">
+          <h2> 1.2 milliards+</h2>
+          <p class="tex" data-i18n="kmParcourus">Kilomètres parcourus</p>
+        </div>
+      </div>
+      <div class="text-succes">
+        <p data-i18n="succesMesure">Le succès se mesure à l'impact, pas au bruit.</p>
+      </div>
+    </section>
+
+    <section class="avis">
+      <h2 data-i18n="ilsReviennent">Ils reviennent pour plus que le trajet.</h2>
+      <p class="sous-titre" data-i18n="avisSousTitre">Des avis qui parlent de trajets fiables, de conducteurs vérifiés et d'une vraie équipe disponible quand il y a un imprévu.</p>
+
+      <div class="avis-grille">
+        <aside class="satisfaction">
+          <span class="label" data-i18n="satisfactionMoyenne">SATISFACTION MOYENNE</span>
+          <div class="note"><strong>4.8</strong><span>/5</span></div>
+          <div class="etoiles">★★★★★</div>
+          <span class="pilule"><i class="fa-solid fa-users"></i> <span data-i18n="plusAvis">Plus de 12 000 avis de la communauté</span></span>
+          <p data-i18n="texteSatisfaction">Basé sur plus de 12 000 avis réels de membres qui utilisent AmigoExpress pour voyager entre les villes, publier des trajets et réserver en confiance.</p>
+          <ul>
+            <li><i class="fa-solid fa-phone"></i> <span data-i18n="equipeDispo">Notre équipe est disponible 7 jours sur 7</span></li>
+            <li><i class="fa-solid fa-shield-halved"></i> <span data-i18n="conducteursVerifies">Conducteurs vérifiés par l'équipe</span></li>
+            <li><i class="fa-solid fa-route"></i> <span data-i18n="trajetsPopulairesQc">Trajets populaires partout au Québec</span></li>
+          </ul>
+        </aside>
+
+        <article class="carte">
+          <div class="meta"><span class="etoiles">★★★★★</span> <b>5/5</b></div>
+          <p class="texte">"Très satisfaite"</p>
+          <hr style="padding-bottom: 5px;">
+          <footer><span class="avatar">DL</span> Diane Lajoie</footer>
+        </article>
+
+        <article class="carte">
+          <div class="meta"><span class="etoiles">★★★★★</span> <b>5/5</b></div>
+          <p class="texte long">"Je tiens à remercier AmigoExpress pour le bon service. Jusqu'à présent, tout se passe très bien ! Les trajets entre Montréal et Ottawa sont toujours agréables et ponctuels."</p>
+          <button class="lire-plus">Lire plus <i class="fa-solid fa-chevron-down"></i></button>
+          <hr style="padding-bottom: 5px;">
+          <footer><span class="avatar">M</span> Muteteri</footer>
+        </article>
+
+        <article class="carte">
+          <div class="meta"><span class="etoiles">★★★★★</span> <b>5/5</b></div>
+          <p class="texte">"Admirable car j'ai fait la connaissance de bonnes personnes durant mes voyages"</p>
+          <hr style="padding-bottom: 5px;">
+          <footer><span class="avatar">W</span> Wilson</footer>
+        </article>
+
+        <article class="carte">
+          <div class="meta"><span class="etoiles">★★★★★</span> <b>5/5</b></div>
+          <p class="texte">"J'ai beaucoup voyagé comme passagère pendant de nombreuses années. C'est un mode de transport agréable et économique."</p>
+          <hr style="padding-bottom: 5px;">
+          <footer><span class="avatar">K</span> Karine</footer>
+        </article>
+
+        <div>
+          <article class="carte" style="margin-bottom: 5px;">
+             <div class="meta" style="font-size: 20px;"><strong>12000+</strong></div>
+             <p style="color: grey; font-size: 13px;" data-i18n="avisReels">avis réels laissés par la communauté</p>
+          </article>
+
+          <article class="carte" style="margin-bottom: 5px;">
+             <div class="meta" style="font-size: 20px;"><strong>12000+</strong></div>
+             <p style="color: grey; font-size: 13px;" data-i18n="avisReels">avis réels laissés par la communauté</p>
+          </article>
+
+          <article class="carte">
+             <div class="meta" style="font-size: 20px;"><strong>12000+</strong></div>
+             <p style="color: grey; font-size: 13px;" data-i18n="avisReels">avis réels laissés par la communauté</p>
+          </article>
+        </div>
+
+        <article class="carte">
+          <div class="meta"><span class="etoiles">★★★★★</span> <b>5/5</b></div>
+          <p class="texte">"Très bien"</p>
+          <hr style="padding-bottom: 5px;">
+          <footer><span class="avatar">H</span> Hanan</footer>
+        </article>
+          
+        <article class="carte">
+          <div class="meta"><span class="etoiles">★★★★★</span> <b>5/5</b></div>
+          <p class="texte">"J'apprécie toujours mes transports et les rencontres faites lors de mes voyages avec Amigo express."</p>
+          <hr style="padding-bottom: 5px;">
+          <footer><span class="avatar">D</span> Danièle</footer>
+        </article>
+      </div>
+      <div style="float: right; padding-right: 32%; margin: auto; margin-top: 10px;">
+        <button class="btn-solid theme-primary" type="button" style="background-color: #0099ff; padding: 10px; color: #fff;" data-i18n="voirPlusAvis">Voir plus d'avis +</button>
+      </div>
+    </section>
+
+    <section class="support">
+      <h2 data-i18n="humainsRepondent">Des humains qui vous répondent, <span>vraiment.</span></h2>
+      <div class="support-grille">
+        <div class="support-image">
+          <img src="./image/dessin.png" alt="Une conseillère du service client au travail">
+        </div>
+        <div class="support-carte">
+          <div class="telephone">
+            <span class="icone"><i class="fa-solid fa-headset"></i></span>
+            <a href="tel:+18772644697">1 (877) 264-4697</a>
+          </div>
+
+          <div class="statut" id="statut">
+            <span class="point"></span>
+            <span id="statutTexte">Ligne ouverte en ce moment</span>
+          </div>
+
+          <p class="titre-horaires"><i class="fa-regular fa-clock"></i> <span data-i18n="heuresService">HEURES DU SERVICE</span></p>
+
+          <ul class="horaires">
+            <li data-jours="1,2,3,4,5" data-ouvre="9" data-ferme="20"><span><i class="point"></i> <span data-i18n="lunVen">Lun – Ven</span></span><b>9h – 20h</b></li>
+            <li data-jours="6"         data-ouvre="9" data-ferme="18"><span><i class="point"></i> <span data-i18n="samedi">Samedi</span></span><b>9h – 18h</b></li>
+            <li data-jours="0"         data-ouvre="9" data-ferme="20"><span><i class="point"></i> <span data-i18n="dimanche">Dimanche</span></span><b>9h – 20h</b></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="contact-barre">
+        <div class="contact-numero">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>
+          <a href="tel:+18772644697">1 (877) 264-4697</a>
+          <span class="pastille" data-i18n="sansFrais">sans frais</span>
+        </div>
+
+        <div class="contact-actions">
+          <a href="#rappel" class="btn-contour">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>
+            <span data-i18n="rappelezMoi">Rappelez-moi</span>
+          </a>
+          <a href="mailto:info@exemple.com" class="btn-contour">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M21 12v5a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h8"/><path d="M7 9l5 4 3-2.4"/><path d="M17 3l4 3-4 3"/><path d="M21 6h-6"/></svg>
+            <span data-i18n="courriel">Courriel</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="garanties">
+      <h2 data-i18n="certitudeAttitude">Certitude sans attitude.<br><span>On s'occupe de vous.</span></h2>
+
+      <div class="garanties-grille">
+        <article class="garantie">
+          <div class="icone">
+            <svg viewBox="0 0 24 24"><path class="plein" d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5l8-3z"/><path class="trait" d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+          </div>
+          <h3 data-i18n="encadrementPro">Encadrement professionnel</h3>
+          <ul>
+            <li data-i18n="verificationPermis">Vérification de la validité des permis de conduire des conducteurs.</li>
+            <li data-i18n="protectionDonnees">Protection des données et de la confidentialité des utilisateurs.</li>
+            <li data-i18n="surveillanceActivite">Surveillance de l'activité des membres et des réservations.</li>
+          </ul>
+        </article>
+
+        <article class="garantie">
+          <div class="icone">
+            <svg viewBox="0 0 24 24"><path class="contour" d="M9 3.5c-4 0-7 2.4-7 5.4 0 1.6.8 3 2.2 4L3.5 16l3.4-1.6c.7.2 1.3.3 2.1.3 4 0 7-2.4 7-5.4s-3-5.8-7-5.8z"/><path class="contour" d="M17 9.5c2.9.5 5 2.4 5 4.8 0 1.4-.7 2.6-1.8 3.5l.5 2.7-3.1-1.4c-.6.1-1.1.2-1.7.2-2.1 0-3.9-.8-5-2.1"/></svg>
+          </div>
+          <h3 data-i18n="oreillesOuvertes">Nos oreilles sont toujours ouvertes</h3>
+          <ul>
+            <li data-i18n="assistanceTelephonique">Assistance téléphonique 7 jours sur 7, 365 jours par année.</li>
+            <li data-i18n="vousDabord">AmigoExpress, c'est vous d'abord, toujours à l'écoute de vos suggestions.</li>
+            <li data-i18n="equipeHumaine">Une vraie équipe humaine, sans robots ni bots, pour vous accompagner à chaque étape.</li>
+          </ul>
+        </article>
+
+        <article class="garantie">
+          <div class="icone">
+            <svg viewBox="0 0 24 24"><circle class="plein" cx="12" cy="6" r="2.6"/><circle class="plein" cx="5" cy="8.5" r="2.1"/><circle class="plein" cx="19" cy="8.5" r="2.1"/><path class="plein" d="M7.5 18c0-2.8 2.1-4.8 4.5-4.8s4.5 2 4.5 4.8z"/><path class="plein" d="M1.5 17c0-2.2 1.5-3.8 3.5-3.8 1 0 1.8.4 2.4 1-.9.9-1.4 2-1.5 2.8z"/><path class="plein" d="M22.5 17c0-2.2-1.5-3.8-3.5-3.8-1 0-1.8.4-2.4 1 .9.9 1.4 2 1.5 2.8z"/></svg>
+          </div>
+          <h3 data-i18n="communauteFormidable">Une communauté formidable</h3>
+          <ul>
+            <li data-i18n="consultezEvaluations">Consultez les évaluations des membres et leur profil.</li>
+            <li data-i18n="voyagezRencontres">Voyagez en faisant des rencontres enrichissantes.</li>
+            <li data-i18n="economiesToutMonde">Passagers et conducteurs réalisent des économies, tout le monde est gagnant.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="banniere">
+      <div class="banniere-carte">
+        <div class="banniere-texte">
+          <p class="etiquette" data-i18n="amigoLocal">AmigoExpress local</p>
+          <h2 data-i18n="nouveauService">Un nouveau service pour les trajets du quotidien</h2>
+          <p class="description" data-i18n="economisezQuotidien">Économisez au quotidien avec notre nouvelle plateforme de covoiturage local. Domicile, travail, école, etc. C'est entièrement gratuit!</p>
+          <a href="#fiche" class="bouton" data-i18n="creerFiche">Créer ma fiche gratuitement</a>
+        </div>
+
+        <img class="banniere-image" src="./image/enterprise_background.jpg" alt="Un passager monte dans une voiture de covoiturage">
+      </div>
+    </section>
+
+    <section class="blog">
+      <h2 data-i18n="conseilsGuides">Conseils, guides et actualités</h2>
+      <p class="blog-sous-titre" data-i18n="liensUtiles">Quelques liens utiles pour avoir des nouvelles d'AmigoExpress!</p>
+
+      <div class="blog-grille">
+        <article class="article">
+          <div class="article-image">
+            <img src="./image/travel_between_cities.jpg" alt="Carte du Canada avec un trajet entre deux villes">
+          </div>
+          <div class="article-corps">
+            <h3 data-i18n="titreArticle1">Combien coûte un trajet entre deux villes au Canada?</h3>
+            <p data-i18n="texteArticle1">Autocar, train, avion, auto ou covoiturage : ce que coûte un trajet entre deux villes canadiennes, selon quand et comment vous réservez.</p>
+            <div class="article-pied">
+              <time datetime="2026-08-31">31 août 2026</time>
+              <a href="#article-1" class="lire" data-i18n="lire">Lire
+                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-image">
+            <img src="./image/newsletter-au.png" alt="Une passagère utilisant l'application AmigoExpress">
+          </div>
+          <div class="article-corps">
+            <h3 data-i18n="titreArticle2">Transformer les trajets quotidiens</h3>
+            <p data-i18n="texteArticle2">Infolettre AmigoExpress : covoiturage local, nouveautés et rappels.</p>
+            <div class="article-pied">
+              <time datetime="2026-08-20">20 août 2026</time>
+              <a href="#article-2" class="lire" data-i18n="lire">Lire
+                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-image">
+            <img src="./image/montreal_toronto.png" alt="Carte du trajet entre Montréal et Toronto">
+          </div>
+          <div class="article-corps">
+            <h3 data-i18n="titreArticle3">Le moyen le moins cher pour aller de Montréal à Toronto</h3>
+            <p data-i18n="texteArticle3">Autocar, train, avion ou covoiturage : le moyen le moins cher entre Montréal et Toronto dépend du délai de réservation et du temps disponible.</p>
+            <div class="article-pied">
+              <time datetime="2026-08-01">01 août 2026</time>
+              <a href="#article-3" class="lire" data-i18n="lire">Lire
+                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="blog-bouton">
+        <a href="#blogue" class="bouton" data-i18n="visiterBlogue">Visiter le blogue</a>
+      </div>
+    </section>
+
+    <section class="app-mobile-section">
+      <div class="app-mobile-container">
+        <div class="app-mobile-content">
+          <span class="app-subtitle" data-i18n="appsMobiles">Applications mobiles</span>
+          <h2 class="app-title" data-i18n="disponibleIphone">Disponible sur iPhone et Android</h2>
+
+          <div class="app-stores">
+            <a href="#" class="app-store-btn" aria-label="Télécharger sur l'App Store">
+              <div class="store-icon">
+               <img src="./image/app_store_logo.png" alt="">
+              </div>
+              <div class="store-text">
+                <strong>4.9 ★ <span data-i18n="onApp">sur l'App Store</span></strong>
+                <small>6.6k <span data-i18n="reviews">avis</span></small>
+              </div>
+            </a>
+
+            <a href="#" class="app-store-btn" aria-label="Télécharger sur Google Play">
+              <div class="store-icon">
+                <img src="./image/google_play_logo.png" alt="">
+              </div>
+              <div class="store-text">
+                <strong>4.8 ★ <span data-i18n="onPlay">sur Google Play</span></strong>
+                <small>1.8k <span data-i18n="reviews2">avis</span></small>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="app-mobile-image">
+          <img src="./image/phones.png" alt="Aperçu de l'application AmigoExpress sur iPhone et Android">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER (inclus dans #content) ================= -->
+  <footer class="pied">
+    <div class="footer-top">
+      <div class="footer-illustration">
+        <img src="./image/kango-happy.png" alt="Illustration kangourou AmigoExpress">
+      </div>
+
+      <div class="footer-slogan">
+        <div class="slogan-images">
+          <img src="./image/birb.png" alt="Oiseau" class="img-oiseau">
+          <img src="./image/note.png" alt="Note de musique" class="img-musique">
+        </div>
+        <p data-i18n="siJavaisAiles">Si j'avais les ailes d'un ange, je partirais pour... Québec!</p>
+        <span class="asterisque" data-i18n="lesAilesAnge">* Les ailes d'un ange</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="site">
+        <a href="https://www.facebook.com/votre-page" class="lien" data-lien="notre facebook">
+          <i class="fa-brands fa-facebook-f" style="font-size: 25px;"></i>
+        </a>
+        <a href="https://www.instagram.com/votre-compte" class="lien" data-lien="notre instagram">
+          <i class="fa-brands fa-instagram" style="font-size: 25px; padding-top: 8px;"></i>
+        </a>
+      </div>
+
+      <div class="footer">
+        <div>
+          <h2 data-i18n="liensRapides">liens rapides</h2>
+          <ul>
+            <li data-i18n="consulterDeparts">Consulter les départs</li>
+            <li data-i18n="annoncerDepart">Annoncer un départ</li>
+            <li data-i18n="abonnement">Abonnement</li>
+            <li data-i18n="acheterCredits">Acheter des crédits de réservation</li>
+            <li data-i18n="monCompte">Mon compte</li>
+            <li data-i18n="amigoV1">Amigo v1.0</li>
+          </ul>
+        </div>
+        <div>
+          <h2 data-i18n="ressources">ressources</h2>
+          <ul>
+            <li data-i18n="commentChauffeur">Comment devenir chauffeur?</li>
+            <li data-i18n="commentPassager">Comment devenir passager?</li>
+            <li data-i18n="conseilsPassagers">Conseils aux passagers</li>
+            <li data-i18n="conseilsConducteurs">Conseils aux conducteurs</li>
+            <li data-i18n="faqFooter">FAG</li>
+            <li data-i18n="blogFooter">blog</li>
+            <li data-i18n="destinationFooter">Destination</li>
+          </ul>
+        </div>
+        <div>
+          <h2 data-i18n="aProposNous">à propos de nous</h2>
+          <ul>
+            <li data-i18n="carrieres">carrières</li>
+            <li data-i18n="dossierPresse">Dossier de presse</li>
+            <li data-i18n="contactezNous">Contactez-nous</li>
+            <li data-i18n="conditionsUtilisation">Conditions d'utilisation | Charte de <br> responsabilité | Vie privée</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copy-right">
+        <ul>
+          <li data-i18n="sansFraisFooter">1-877-264-4697 (sans frais)</li>
+          <li data-i18n="copyright">© 2026 covoiturage AmigoExpress tous droits réservés</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+<script src="./js/script.js"></script>
+</body>
+</html>

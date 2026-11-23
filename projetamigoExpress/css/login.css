@@ -1,0 +1,238 @@
+/* ============================================================
+   PAGE DE CONNEXION (LOGIN)
+   ============================================================ */
+
+/* Fond de la page */
+.login-page-body {
+  background-color: #f7f9fc; /* Gris très clair/bleuté */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Conteneur principal */
+.login-wrapper {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* Carte blanche */
+.login-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* En-tête */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+/* Boutons Sociaux */
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-social:hover {
+  background: #f9fafb;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Séparateur */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.separator span {
+  padding: 0 15px;
+}
+
+/* Formulaire */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.required {
+  color: #ef4444; /* Rouge */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #0099ff;
+}
+
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+/* Mot de passe avec icône */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 18px;
+  background: none;
+  border: none;
+}
+
+/* Options (Remember / Forgot) */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+/* Custom Checkbox */
+.checkbox-container input {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #0099ff;
+}
+
+.forgot-link {
+  color: #0099ff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* Bouton Continuer */
+.btn-submit {
+  background: #0099ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  background: #0080d6;
+}
+
+/* Lien d'inscription */
+.login-footer {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.login-footer a {
+  color: #0099ff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+}
